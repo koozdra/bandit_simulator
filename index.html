@@ -1,0 +1,68 @@
+<html>
+<head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.13.0/d3.min.js"></script>
+  <script src='https://cdn.jsdelivr.net/g/lodash@4(lodash.min.js+lodash.fp.min.js)'></script>
+  <script src="bandit.js"></script>
+</head>
+<body onload="load()">
+  <div style="display: inline-block;">
+    <svg id="canvas"/>
+    <div style="width: 500px;">
+      <strong>chart: Relative percentage pulls</strong><br/>
+      <p>
+      Start with $1000. $1 to play (pull). On a win you get $2 (reward). On loss the dollar is lost. Rewards are delayed by randomely selecting a delay from <i>Reward delay min</i> and <i>Reward delay max</i> (seconds).
+      </p>
+    </div>
+  </div>
+  <div style="display: inline-block; vertical-align: top;">
+    <div>
+      <button id="buttonRun" onclick="run()">Run</button>
+      <br/>
+      <br/>
+    </div>
+    <div id="inputs">
+      <div>
+        <label>Iterations: <input type="number" id="inputIterations" value="10000"/></label>
+      </div>
+      <div>
+        <label>Epsilon: <input type="number" id="inputEpsilon"/></label>
+      </div>
+      <div>
+        <label>Epsilon decay (F): <input type="number" id="inputEpsilonDecayFactor"/></label>
+      </div>
+      <div>
+        <label><input type="radio" name="algorithmType" checked onclick="changeAlgorithmType('eGreedy')"/>ε-greedy</label>
+        <br/>
+        <label><input type="radio" name="algorithmType" onclick="changeAlgorithmType('eGreedyDecayPulls')"/>ε-decay-pulls (F*v / (pulls + F*v))</label>
+        <br/>
+        <label><input type="radio" name="algorithmType" onclick="changeAlgorithmType('eGreedyDecayRewards')"/>ε-decay-rewards (F*v / (rewards + F*v))</label>
+        <br/>
+        <label><input type="radio" name="algorithmType" onclick="changeAlgorithmType('softmax')"/>softmax [TODO]</label>
+      </div>
+      <div>
+        <label>Reward delay min: <input type="number" id="inputRewardDelayMin"/></label>
+      </div>
+      <div>
+        <label>Reward delay max: <input type="number" id="inputRewardDelayMax"/></label>
+      </div>
+      <div>
+        <div id="variantsInputs"/>
+
+      </div>
+      <button id="buttonAddVariant" onclick="addVariant()">Add variant</button>
+    </div>
+    <br/>
+    <div id="outputs">
+      <div class="iteration"></div>
+      <div class="total"></div>
+      <div class="totalPulls"></div>
+      <div class="regretPulls"></div>
+      <div class="variants"></div>
+      <div class="outstandingDelayedRewards"></div>
+      <div class="epsilon"></div>
+    </div>
+  </div>
+
+
+</body>
+</html
